@@ -32,6 +32,7 @@ export class User extends BaseModel {
     email: string;
 
     @Prop({ required: true })
+    @Field(() => String)
     password: string;
 }
 
