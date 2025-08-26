@@ -2,6 +2,8 @@ import { Mutation, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { User } from './user.entity';
+import { UseGuards } from '@nestjs/common';
+import { AuthorizationGuard } from 'src/auth/guard/authorization.gurad';
 
 @Resolver(()=> User)
 export class UserResolver {
@@ -24,6 +26,7 @@ export class UserResolver {
     }
 
     @Query(() => [User])
+    @UseGuards(AuthorizationGuard)
     async getUser(){
         return this.userService.getAllUsers();
     }

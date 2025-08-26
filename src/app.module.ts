@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { AuthorizationGuard } from './auth/guard/authorization.gurad';
 
 @Module({
   imports: [
@@ -35,5 +36,6 @@ import { join } from 'path';
   ],
   controllers: [AppController],
   providers: [AppService],
+
 })
 export class AppModule {}

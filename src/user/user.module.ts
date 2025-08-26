@@ -6,6 +6,7 @@ import { UserSchema } from './user.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { HashingProvider } from './provider/hashing.provider';
 import { BcryptProvider } from './provider/bcrypt.provider';
+import { AuthorizationGuard } from 'src/auth/guard/authorization.gurad';
 
 
 @Module({
@@ -23,7 +24,8 @@ import { BcryptProvider } from './provider/bcrypt.provider';
     {
       provide: HashingProvider,
       useClass:BcryptProvider,
-    }
+    },
+    AuthorizationGuard
 
   ],
   exports:[UserService]

@@ -6,6 +6,7 @@ import { HashingProvider } from 'src/user/provider/hashing.provider';
 import { BcryptProvider } from 'src/user/provider/bcrypt.provider';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthorizationGuard } from './guard/authorization.gurad';
 
 @Module({
   imports:[
@@ -17,7 +18,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') },
       }),
       inject:[ConfigService],
-    })
+    }),
   ],
   providers: [
     AuthService, 
@@ -25,7 +26,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     {
       provide: HashingProvider,
       useClass: BcryptProvider
-    }
-  ]
+    },
+    AuthorizationGuard,
+  ],
+  exports:[AuthService, JwtModule]
 })
 export class AuthModule {}
